@@ -1,6 +1,7 @@
 {
   "devDependencies": {
-    "@ui5/cli": "^3.9.1"
+    "@ui5/cli": "^3.9.1",
+    "ui5-middleware-simpleproxy": "^3.2.12"
   },
   "name": "walkthrough-app",
   "version": "1.0.0",
