@@ -54,6 +54,10 @@
       "async": true,
       "id": "app"
     },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
     "resources": {
       "css": [
         {

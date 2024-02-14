@@ -1,10 +1,20 @@
 sap.ui.define(
-  ["sap/ui/core/mvc/Controller", "sap/ui/core/routing/History"],
-  (Controller, History) => {
+  [
+    "sap/ui/core/mvc/Controller",
+    "sap/ui/core/routing/History",
+    "sap/m/MessageToast",
+    "sap/ui/model/json/JSONModel",
+  ],
+  (Controller, History, MessageToast, JSONModel) => {
     "use strict";
 
     return Controller.extend("ui5.walkthrough.controller.Detail", {
       onInit() {
+        const oViewModel = new JSONModel({
+          currency: "EUR",
+        });
+        this.getView().setModel(oViewModel, "view");
+
         const oRouter = this.getOwnerComponent().getRouter();
         oRouter
           .getRoute("detail")
@@ -12,6 +22,7 @@ sap.ui.define(
       },
 
       onObjectMatched(oEvent) {
+        this.byId("rating").reset();
         this.getView().bindElement({
           path:
             "/" +
@@ -32,6 +43,17 @@ sap.ui.define(
           const oRouter = this.getOwnerComponent().getRouter();
           oRouter.navTo("overview", {}, true);
         }
+      },
+
+      onRatingChange(oEvent) {
+        const fValue = oEvent.getParameter("value");
+        const oResourceBundle = this.getView()
+          .getModel("i18n")
+          .getResourceBundle();
+
+        MessageToast.show(
+          oResourceBundle.getText("ratingConfirmation", [fValue])
+        );
       },
     });
   }
